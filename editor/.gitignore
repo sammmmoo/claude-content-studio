@@ -1,0 +1,9 @@
+node_modules/
+out/
+# your clips and words stay on your machine
+public/footage/*
+!public/footage/.gitkeep
+public/images/*
+!public/images/.gitkeep
+props/*
+!props/.gitkeep
