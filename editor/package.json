@@ -2,6 +2,7 @@
   "name": "claude-content-studio-editor",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "description": "Remotion templates for the six edit presets and four devices in Claude Content Studio",
   "scripts": {
     "studio": "remotion studio",
