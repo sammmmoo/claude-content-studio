@@ -53,4 +53,4 @@ Claude installs them for you in the setup step.
 
 Works with Claude Code. Codex reads `AGENTS.md`, which points to the same files.
 
-Made by Sam at [OP Digital](https://opdigital.com.au). We're improving it all the time, so check back for new presets and animations.
+Free to use under the [MIT licence](LICENSE): use it, change it, share it, keep the copyright line. Made by Sam at [OP Digital](https://opdigital.com.au). We're improving it all the time, so check back for new presets and animations.

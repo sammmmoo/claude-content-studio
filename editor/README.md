@@ -105,6 +105,7 @@ Clean Wide is the one locked shot, so it skips the opener and breathe.
 
 ## Licences
 
+- This code (and the rest of the repo): MIT, see `LICENSE` at the top of the repo.
 - Fonts in `public/fonts/` (Montserrat, TikTok Sans, Inter, Instrument Serif): SIL Open Font License 1.1, licence files alongside.
 - Remotion is free for individuals and companies of up to three people; bigger companies need a licence: [remotion.dev/license](https://www.remotion.dev/license).
 - The presets are inspired by the creators named in `presets/PRESETS.md`; nothing here is theirs, and they aren't affiliated with it.
