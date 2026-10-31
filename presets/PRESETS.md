@@ -55,4 +55,4 @@ Each one is measured from a real creator's recent videos and their outliers (3x+
 - **Reel orbit:** a few reels circle above your head, passing behind it.
 - **Pyramid:** for any 3-level framework, one triangle splits into bands, each lights up and labels itself as you say it, and the camera pushes in.
 
-Code for the devices is coming to `editor/devices/` (see ROADMAP.md).
+Code for every preset and device, plus the captions, text hook, opener, breathe and transitions, is in `editor/` (see `editor/README.md`).

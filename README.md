@@ -47,6 +47,7 @@ Claude installs them for you in the setup step.
 | `.claude/skills/` | The five steps: research-creators, topic-finder, hook-writer, script-writer, video-editor. |
 | `presets/` | Edit styles, measured from real creators' outlier videos. |
 | `rules/` | The rules every edit follows. |
+| `editor/` | The Remotion project that renders the edit: a template for every preset, the four devices, captions, hooks, zooms and transitions. |
 | `references/` | Where Claude saves what it learns about your creators. |
 | `footage/`, `output/` | Your raw clips in, finished videos out. |
 
