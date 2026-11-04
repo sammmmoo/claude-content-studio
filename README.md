@@ -24,6 +24,7 @@ Most AI editing setups give everyone the same look, so the feed fills up with vi
 - [faster-whisper](https://github.com/SYSTRAN/faster-whisper) writes out every word with its timing, for the cuts and captions.
 - [FFmpeg](https://ffmpeg.org) cuts and joins the video.
 - [Remotion](https://www.remotion.dev) renders the captions, graphics and animations.
+- [Robust Video Matting](https://github.com/PeterL1n/RobustVideoMatting) cuts you out of your clip, so reels can sit behind you (`editor/scripts/cutout.py`).
 
 Claude installs them for you in the setup step.
 
@@ -54,3 +55,5 @@ Claude installs them for you in the setup step.
 Works with Claude Code. Codex reads `AGENTS.md`, which points to the same files.
 
 Free to use under the [MIT licence](LICENSE): use it, change it, share it, keep the copyright line. Made by Sam at [OP Digital](https://opdigital.com.au). We're improving it all the time, so check back for new presets and animations.
+
+Remotion has its own licence: free for individuals and companies of up to three people, while a company of four or more people needs a paid Remotion licence ([remotion.dev/license](https://www.remotion.dev/license)). Robust Video Matting is GPL-3.0; it isn't included here and downloads itself the first time you make a cut-out.
