@@ -72,7 +72,13 @@ Fields every template takes: `footage`, `words`, `startFrom` (seconds into the c
 
 - **Screenshots and cards:** put images in `public/images/` and pass `"image": "images/name.png"`. Real screenshots only.
 - **Reels for the devices:** `{"src": "images/reel1.jpg", "views": 1240000}`. Only reels you have the right to show, and only real view counts.
-- **Cut-out:** Reel wall, feed scroll, reel orbit and the Wall's head break-out put things behind you, so they need a WebM with alpha of the same clip (you with the background removed), made with any background-removal tool, e.g. [Robust Video Matting](https://github.com/PeterL1n/RobustVideoMatting). Pass it as `"cutout": "footage/take1-cutout.webm"`. Without one, each device falls back to a layout that doesn't need it.
+- **Cut-out:** Reel wall, feed scroll, reel orbit and the Wall's head break-out put things behind you, so they need a WebM with alpha of the same clip (you with the background removed). Make it with:
+  ```bash
+  pip install torch torchvision numpy pillow    # once
+  python scripts/cutout.py public/footage/take1.mp4                 # writes public/footage/take1-cutout.webm
+  python scripts/cutout.py public/footage/take1.mp4 --cuts 212,431  # several takes joined: the frames where each new take starts
+  ```
+  Then pass it as `"cutout": "footage/take1-cutout.webm"`. It uses [Robust Video Matting](https://github.com/PeterL1n/RobustVideoMatting), which downloads itself the first time (about 15 MB), and takes a few minutes per minute of footage on an ordinary CPU. If your clip is iPhone HDR, it writes `take1-sdr.mp4` too: use that as your `footage`, so you and your cut-out match. Without a cut-out, each device falls back to a layout that doesn't need it.
 
 ### Test on a clip before you film
 
@@ -107,5 +113,6 @@ Clean Wide is the one locked shot, so it skips the opener and breathe.
 
 - This code (and the rest of the repo): MIT, see `LICENSE` at the top of the repo.
 - Fonts in `public/fonts/` (Montserrat, TikTok Sans, Inter, Instrument Serif): SIL Open Font License 1.1, licence files alongside.
-- Remotion is free for individuals and companies of up to three people; bigger companies need a licence: [remotion.dev/license](https://www.remotion.dev/license).
+- Remotion is free for individuals and companies of up to three people; a company of four or more people needs a paid Remotion licence: [remotion.dev/license](https://www.remotion.dev/license).
+- Robust Video Matting, which `scripts/cutout.py` downloads when it runs: GPL-3.0. It isn't included in this repo.
 - The presets are inspired by the creators named in `presets/PRESETS.md`; nothing here is theirs, and they aren't affiliated with it.
