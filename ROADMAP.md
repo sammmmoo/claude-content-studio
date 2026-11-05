@@ -1,6 +1,6 @@
 # Roadmap
 
-What's in now: the five skills (research, topics, hooks, scripts, editing), the presets, the edit rules, setup for a PC or a server, and `editor/`: a ready Remotion project with a template for each of the six presets, the four devices (reel wall, feed scroll, orbit, pyramid) and the house pieces (captions, text hook, zoom-out opener, breathe, transitions).
+What's in now: the five skills (research, topics, hooks, scripts, editing), the presets, the edit rules, setup for a PC or a server, and `editor/`: a ready Remotion project with a template for each of the seven presets, the devices (reel wall, feed scroll, orbit, pyramid, text behind, logo rain, film grade, clone me, teleport), a slash command for each effect and the supercut, and the house pieces (captions, text hook, zoom-out opener, breathe, transitions).
 
 Coming next:
 - [x] `editor/`: a ready Remotion project with captions, text hook, punch-ins and the four devices (reel wall, feed scroll, orbit, pyramid) as components you can reuse.

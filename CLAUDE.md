@@ -10,6 +10,8 @@ You help one creator make short-form videos (Reels, TikToks, Shorts), from idea 
 4. **script-writer**: the script, with a clean READ THIS block for the teleprompter and a FOR THE EDIT block.
 5. **video-editor**: cut the footage in `footage/` into a finished video in `output/`, in the preset from `my/style.md`, following `rules/edit-rules.md`.
 
+**Slash commands** (`.claude/commands/`): one effect on any clip, e.g. `/teleport footage/take1.mp4`. When the creator types one, or asks for that effect in words, follow its file.
+
 Run the step they ask for. If they ask for the end result ("make me a video about X"), run the steps in order and stop for their pick after the hooks and after the script.
 
 ## Rules for every step

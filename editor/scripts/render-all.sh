@@ -9,7 +9,7 @@ PROPS=${1:-"{}"}
 FRAMES=${FRAMES:-0-59}
 mkdir -p out
 npx remotion bundle --out-dir=out/bundle >/dev/null
-for C in Wall TopCard HeadBand RedBox WalkShow CleanWide ReelWall FeedScroll ReelOrbit Pyramid; do
+for C in Wall TopCard HeadBand RedBox WalkShow CleanWide Supercut ReelWall FeedScroll ReelOrbit Pyramid TextBehind LogoRain FilmGrade CloneMe Teleport; do
   npx remotion still out/bundle "$C" "out/$C.png" --frame=45 --props="$PROPS" >/dev/null
   npx remotion render out/bundle "$C" "out/$C.mp4" --frames="$FRAMES" --props="$PROPS" >/dev/null
   echo "ok  $C  out/$C.png  out/$C.mp4"

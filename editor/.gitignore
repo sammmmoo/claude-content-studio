@@ -7,3 +7,6 @@ public/images/*
 !public/images/.gitkeep
 props/*
 !props/.gitkeep
+
+# tests/check.py renders here
+tests/out/

@@ -61,10 +61,14 @@ export const CutOverlay: React.FC<{f: number; cuts: Cut[]}> = ({f, cuts}) => {
 };
 
 // Glitch slices, inside the footage layer. `src` = the footage (null = the stand-in); `startFrom` = seconds into the file
-// at composition frame 0.
-export const CutGlitch: React.FC<{cuts: Cut[]; src: string | null; startFrom?: number}> = ({cuts, src, startFrom = 0}) => (
+// at composition frame 0. rgb / stutter / scan switch on glitch v2 (below); with none of them set it renders as before.
+export const CutGlitch: React.FC<{cuts: Cut[]; src: string | null; startFrom?: number; rgb?: boolean; stutter?: boolean; scan?: boolean}> = ({
+  cuts, src, startFrom = 0, rgb = false, stutter = false, scan = false}) => (
   <>
-    {cuts.filter((c) => c.type === "glitch").map((c) => (
+    {cuts.filter((c) => c.type === "glitch").map((c) => rgb || stutter || scan ? (
+      <GlitchV2 key={c.at} at={sec(c.at)} rgb={rgb} stutter={stutter} scan={scan}
+        picture={(dd) => <SourceFrame src={src} sf={sec(c.at) + sec(startFrom) + dd} />} />
+    ) : (
       <Sequence key={c.at} from={sec(c.at) - 2} durationInFrames={5} layout="none">
         <GlitchSlices src={src} from={sec(c.at) - 2 + sec(startFrom)} />
       </Sequence>
@@ -86,3 +90,61 @@ const GlitchSlices: React.FC<{src: string | null; from: number}> = ({src, from})
     </>
   );
 };
+
+// ---------- glitch v2: built in the recipe's order, d = frames from the cut ----------
+// 1. RGB split: red right, blue left, 12 px on the cut frame, halving each frame after (gone by +4).
+// 2. Slices: the same four hue-turned bands as above, d -2..+2.
+// 3. Stutter: frame -1 repeats frame -2, so the picture catches before the jump.
+// 4. Scanlines: every 3 px at 20%, the cut frame only.
+// `picture(dd)` draws the picture dd frames from the cut (any layer: the footage, or a teleport frame). Each frame is its
+// own 1-frame Sequence, so whatever `picture` draws should show its exact source frame at local frame 0.
+export const RGB_DX = [12, 6, 3, 1.5];
+const BANDS = [[0.18, 0.27, 34, 18], [0.44, 0.5, -46, -22], [0.63, 0.74, 28, 14], [0.86, 0.9, -22, -12]];
+const AMP = [0.6, 1, 0.8, 0.5, 0.2];
+
+const SourceFrame: React.FC<{src: string | null; sf: number}> = ({src, sf}) => (
+  <AbsoluteFill>
+    {src ? <OffthreadVideo src={/^https?:/.test(src) ? src : staticFile(src)} trimBefore={Math.max(0, sf)} muted style={{width: "100%", height: "100%", objectFit: "cover"}} /> : <StandIn />}
+  </AbsoluteFill>
+);
+
+// Exact channel split: each copy keeps one channel, the three add back up under screen. Scaled up by the split so the
+// shifted channels never leave a coloured strip at the side edges (1.024 at 12 px).
+export const RgbSplit: React.FC<{dx: number; children: React.ReactNode}> = ({dx, children}) => (
+  <AbsoluteFill style={{background: "#000", isolation: "isolate", transform: `scale(${1 + 2.2 * dx / 1080})`}}>
+    {([["#ff0000", dx], ["#00ff00", 0], ["#0000ff", -dx]] as [string, number][]).map(([c, x]) => (
+      <AbsoluteFill key={c} style={{mixBlendMode: "screen", isolation: "isolate", transform: `translateX(${x}px)`}}>
+        {children}
+        <AbsoluteFill style={{background: c, mixBlendMode: "multiply"}} />
+      </AbsoluteFill>
+    ))}
+  </AbsoluteFill>
+);
+
+const Scan: React.FC<{every: number; dark: number}> = ({every, dark}) => (
+  <AbsoluteFill style={{backgroundImage: `repeating-linear-gradient(0deg, rgba(0,0,0,${dark}) 0px, rgba(0,0,0,${dark}) 1px, transparent 1px, transparent ${every}px)`}} />
+);
+
+export const GlitchV2: React.FC<{at: number /* frame of the cut */; picture: (dd: number) => React.ReactNode; rgb: boolean; stutter: boolean; scan: boolean}> = ({
+  at, picture, rgb, stutter, scan}) => (
+  <>
+    {[-2, -1, 0, 1, 2, 3].filter((d) => at + d >= 0).map((d) => {
+      const dd = stutter && d === -1 ? -2 : d;
+      const split = rgb && d >= 0 ? RGB_DX[d] : 0;
+      const amp = d <= 2 ? AMP[d + 2] : 0;
+      const pic = () => (split > 0 ? <RgbSplit dx={split}>{picture(dd)}</RgbSplit> : picture(dd));
+      return (
+        <Sequence key={d} from={at + d} durationInFrames={1} layout="none">
+          {(split > 0 || dd !== d) && pic()}
+          {amp > 0 && BANDS.map(([y0, y1, dx, hue], i) => (
+            <div key={i} style={{position: "absolute", inset: 0, clipPath: `inset(${y0 * 100}% 0 ${(1 - y1) * 100}% 0)`,
+              transform: `translateX(${dx * amp * (d % 2 ? -1 : 1)}px)`, filter: `hue-rotate(${hue}deg) saturate(1.35) brightness(1.08)`}}>
+              {pic()}
+            </div>
+          ))}
+          {scan && d === 0 && <Scan every={3} dark={0.2} />}
+        </Sequence>
+      );
+    })}
+  </>
+);

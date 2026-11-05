@@ -6,7 +6,13 @@ import {FeedScroll} from "./devices/FeedScroll";
 import {Pyramid} from "./devices/Pyramid";
 import {ReelOrbit} from "./devices/ReelOrbit";
 import {ReelWall} from "./devices/ReelWall";
+import {FilmGrade} from "./devices/FilmGrade";
+import {CloneMe} from "./devices/CloneMe";
+import {Teleport} from "./devices/Teleport";
+import {LogoRain} from "./devices/LogoRain";
+import {TextBehind} from "./devices/TextBehind";
 import {CleanWide} from "./presets/CleanWide";
+import {Supercut} from "./presets/Supercut";
 import {HeadBand} from "./presets/HeadBand";
 import {RedBox} from "./presets/RedBox";
 import {TopCard} from "./presets/TopCard";
@@ -44,12 +50,20 @@ export const Root: React.FC = () => (
       {comp("RedBox", RedBox, demo.redBox)}
       {comp("WalkShow", WalkShow, demo.walkShow)}
       {comp("CleanWide", CleanWide, demo.cleanWide)}
+      {comp("Supercut", Supercut, demo.supercut)}
     </Folder>
     <Folder name="Devices">
       {comp("ReelWall", ReelWall, demo.reelWall)}
       {comp("FeedScroll", FeedScroll, demo.feedScroll)}
       {comp("ReelOrbit", ReelOrbit, demo.reelOrbit)}
       {comp("Pyramid", Pyramid, demo.pyramid)}
+    </Folder>
+    <Folder name="Effects">
+      {comp("TextBehind", TextBehind, demo.textBehind)}
+      {comp("LogoRain", LogoRain, demo.logoRain)}
+      {comp("FilmGrade", FilmGrade, demo.filmGrade)}
+      {comp("CloneMe", CloneMe, demo.cloneMe)}
+      {comp("Teleport", Teleport, demo.teleport)}
     </Folder>
   </>
 );

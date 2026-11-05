@@ -10,6 +10,7 @@ Each one is measured from a real creator's recent videos and their outliers (3x+
 | 4 | Red Box | Alex Hormozi | Car, or sat down | A red question box opens it, then just you and small subtitles |
 | 5 | Walk & Show | Mino Lee | Walking | Selfie walk, small captions, real screen cards for a second or two |
 | 6 | Clean Wide | Jun Yuh | Any clean room | One wide locked shot, no cuts, small cards on your chest |
+| 7 | Supercut | Our own supercuts | Anywhere, several takes | One argument cut from different videos under one numbered card |
 
 ## 1. Wall
 - Graphics live on a wall the camera glides along; you sit in a window at the bottom.
@@ -49,10 +50,20 @@ Each one is measured from a real creator's recent videos and their outliers (3x+
 - The top outliers for this style are 10-31 seconds with no cuts at all.
 - Best for: short lists and price-tag style breakdowns.
 
+## 7. Supercut
+- Each point comes from a different take, even a different shirt or room. The clips play back to back, each next one's first word starting a beat before its picture.
+- One card at the top: a yellow hook on frame 0, then a dark card with the point's number and its words as they're said, a bar that fills a segment per point, a checklist of the points and a comment CTA.
+- Best for: "check these 3" lists and any argument you've already made on camera more than once.
+
 ## Devices (use inside any preset)
 - **Reel wall:** when you talk about views or content, the background becomes a slow-scrolling wall of reels with their view counts, you cut out in front.
 - **Feed scroll:** when you talk about one creator, their feed scrolls behind you.
 - **Reel orbit:** a few reels circle above your head, passing behind it.
 - **Pyramid:** for any 3-level framework, one triangle splits into bands, each lights up and labels itself as you say it, and the camera pushes in.
+- **Text behind:** one big word behind your head, you in front of it.
+- **Logo rain:** when you name your tools or brands, tiles with their logos tumble down behind you.
+- **Film grade:** a before/after wipe from the flat clip to a film look.
+- **Clone me:** two more of you step in beside you, each a beat behind.
+- **Teleport:** you jump to a new spot on each cut, with a glitch; on a tripod clip you slide across the room.
 
 Code for every preset and device, plus the captions, text hook, opener, breathe and transitions, is in `editor/` (see `editor/README.md`).

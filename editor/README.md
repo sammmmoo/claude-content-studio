@@ -31,10 +31,16 @@ The compositions:
 | 4 Red Box | `RedBox` | The viewer's question in a red box on frame 0, then small lowercase subtitles; wide and close framings. |
 | 5 Walk & Show | `WalkShow` | POV hook, small outlined captions, still screen cards, transitions on every cut. |
 | 6 Clean Wide | `CleanWide` | One locked wide shot, small title held, word-by-word captions, price-tag cards on your chest. |
+| 7 Supercut | `Supercut` | Clips from different videos back to back (J-cut joins) under one card: yellow hook, numbered sections typed as they're said, a segment bar, checklist and comment CTA. |
 | Reel wall | `ReelWall` | The background becomes a drifting wall of reels with view counts; you in front. |
 | Feed scroll | `FeedScroll` | One creator's feed flicks up on a card behind you. |
 | Reel orbit | `ReelOrbit` | Reels circle above your head, passing behind it. |
 | Pyramid | `Pyramid` | A 3-level framework: each band lights and labels itself as you say it, the camera pushes in, a capstone completes it. |
+| Text behind | `TextBehind` | One big word rises in behind your head; you stand in front of it. |
+| Logo rain | `LogoRain` | White tiles with your logos tumble down behind you. |
+| Film grade | `FilmGrade` | A white line wipes the clip from flat to a film look, BEFORE and AFTER pills on each side. |
+| Clone me | `CloneMe` | Copies of you step in beside you, each a beat behind. |
+| Teleport | `Teleport` | A glitch on every jump cut; with a clean plate (`scripts/teleport_prep.py`) you also slide across the room, ghosts trailing. |
 
 ## Your footage and words
 
@@ -72,13 +78,15 @@ Fields every template takes: `footage`, `words`, `startFrom` (seconds into the c
 
 - **Screenshots and cards:** put images in `public/images/` and pass `"image": "images/name.png"`. Real screenshots only.
 - **Reels for the devices:** `{"src": "images/reel1.jpg", "views": 1240000}`. Only reels you have the right to show, and only real view counts.
-- **Cut-out:** Reel wall, feed scroll, reel orbit and the Wall's head break-out put things behind you, so they need a WebM with alpha of the same clip (you with the background removed). Make it with:
+- **Cut-out:** Reel wall, feed scroll, reel orbit, text behind, logo rain, clone me, teleport and the Wall's head break-out put things behind you, so they need a WebM with alpha of the same clip (you with the background removed). Make it with:
   ```bash
   pip install torch torchvision numpy pillow    # once
   python scripts/cutout.py public/footage/take1.mp4                 # writes public/footage/take1-cutout.webm
   python scripts/cutout.py public/footage/take1.mp4 --cuts 212,431  # several takes joined: the frames where each new take starts
   ```
   Then pass it as `"cutout": "footage/take1-cutout.webm"`. It uses [Robust Video Matting](https://github.com/PeterL1n/RobustVideoMatting), which downloads itself the first time (about 15 MB), and takes a few minutes per minute of footage on an ordinary CPU. If your clip is iPhone HDR, it writes `take1-sdr.mp4` too: use that as your `footage`, so you and your cut-out match. Without a cut-out, each device falls back to a layout that doesn't need it.
+- **Teleport plate:** for `Teleport` on a tripod clip, `python scripts/teleport_prep.py public/footage/take1.mp4 --cutout public/footage/take1-cutout.webm --jumps 2.4,4.3` (the seconds of each jump cut) writes `take1-plate.png`, the room with you out of it, and prints the `plate` and `jumps` props.
+- **Supercut pieces:** for `Supercut`, `python scripts/supercut_prep.py --piece public/footage/take1.mp4:2.1:9.4:props/take1-words.json --piece public/footage/take2.mp4:0.4:6.0:props/take2-words.json --jcut 0.1 --cut glitch` joins the pieces (seconds in each clip) into one timeline and prints the `pieces`, `words`, `beats` and `cuts` props; add the `hook`, `sections`, `checklist` and `cta`.
 
 ### Test on a clip before you film
 

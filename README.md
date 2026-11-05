@@ -39,6 +39,19 @@ Claude installs them for you in the setup step.
 4. **Say to Claude:** `Research my creators.` It studies them and writes your references.
 5. **Then:** `Give me 10 video ideas`, `Write the script for idea 3`, and when you've filmed it, drop the footage in `footage/` and say `Edit this`.
 
+## Slash commands
+
+One effect on any vertical clip, yours or a client's. Type the command and the clip in Claude Code, e.g. `/teleport footage/take1.mp4`:
+
+- `/teleport`: you jump from one spot to another on each cut, with a glitch; on a tripod clip you also slide across the room.
+- `/text-behind`: one big word behind your head, you in front of it.
+- `/reel-wall`: the background becomes a drifting wall of reels, you in front.
+- `/reel-orbit`: reels circle above your head, passing behind it.
+- `/logo-rain`: tiles with your logos tumble down behind you.
+- `/film-grade`: a before/after wipe from the flat clip to a film look.
+- `/clone-me`: two more of you step in beside you, each a beat behind.
+- `/supercut`: one argument cut from different videos under one numbered card, e.g. `/supercut footage/take1.mp4 footage/take2.mp4 footage/take3.mp4`.
+
 ## What's in here
 
 | Folder | What it does |
@@ -46,9 +59,10 @@ Claude installs them for you in the setup step.
 | `CLAUDE.md` | How Claude works in this folder. It reads this first. |
 | `my/` | You: your business, your creators, your style. |
 | `.claude/skills/` | The five steps: research-creators, topic-finder, hook-writer, script-writer, video-editor. |
+| `.claude/commands/` | The slash commands above, one file each. |
 | `presets/` | Edit styles, measured from real creators' outlier videos. |
 | `rules/` | The rules every edit follows. |
-| `editor/` | The Remotion project that renders the edit: a template for every preset, the four devices, captions, hooks, zooms and transitions. |
+| `editor/` | The Remotion project that renders the edit: a template for every preset, the devices and effects, captions, hooks, zooms and transitions. |
 | `references/` | Where Claude saves what it learns about your creators. |
 | `footage/`, `output/` | Your raw clips in, finished videos out. |
 

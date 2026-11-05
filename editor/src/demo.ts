@@ -4,8 +4,14 @@ import {FeedScrollProps} from "./devices/FeedScroll";
 import {PyramidProps} from "./devices/Pyramid";
 import {ReelOrbitProps} from "./devices/ReelOrbit";
 import {ReelWallProps} from "./devices/ReelWall";
+import {FilmGradeProps} from "./devices/FilmGrade";
+import {CloneMeProps} from "./devices/CloneMe";
+import {TeleportProps} from "./devices/Teleport";
+import {LogoRainProps} from "./devices/LogoRain";
+import {TextBehindProps} from "./devices/TextBehind";
 import {Reel} from "./objects/cards";
 import {CleanWideProps} from "./presets/CleanWide";
+import {SupercutProps} from "./presets/Supercut";
 import {HeadBandProps} from "./presets/HeadBand";
 import {RedBoxProps} from "./presets/RedBox";
 import {TopCardProps} from "./presets/TopCard";
@@ -120,4 +126,57 @@ export const pyramid: PyramidProps = {
     {label: "WHO CHASES", at: t(pyrW, "who"), reveal: t(pyrW, "Skip")},
   ],
   cap: t(pyrW, "nicer"),
+};
+
+// ---- effects (the slash commands) ----
+const textW = demoWords("Big type that sits behind you. One message to Claude and it's done.");
+export const textBehind: TextBehindProps = {
+  footage: null, words: textW, highlight: ["behind"],
+  hook: {top: "Text that sits", main: "behind you", until: end(textW, "you.")},
+  text: "CLAUDE", enter: t(textW, "One"),
+};
+
+const rainW = demoWords("Every tool I use, raining down behind me. You just say logo rain.");
+export const logoRain: LogoRainProps = {
+  footage: null, words: rainW, highlight: ["rain."],
+  hook: {top: "Every tool", main: "I use", until: end(rainW, "use,")},
+  logos: [], enter: t(rainW, "raining"),
+};
+
+const gradeW = demoWords("A flat clip on the left, the film look on the right. Then the whole clip is graded.");
+export const filmGrade: FilmGradeProps = {
+  footage: null, words: gradeW, highlight: ["film"],
+  hook: {top: "Flat clip to", main: "a film look", until: end(gradeW, "right.")},
+  enter: t(gradeW, "A"),
+};
+
+const cloneW = demoWords("Two more of me, a beat behind. Same moves, just late. That's clone me.");
+export const cloneMe: CloneMeProps = {
+  footage: null, words: cloneW, highlight: ["behind."],
+  hook: {top: "Two more", main: "of me", until: end(cloneW, "me,")},
+  enter: t(cloneW, "Two"),
+};
+
+const teleW = demoWords("Watch me jump across the room. One cut, one glitch, and I'm over here. That's teleport.");
+export const teleport: TeleportProps = {
+  footage: null, words: teleW, highlight: ["jump"],
+  hook: {top: "Watch me", main: "teleport", until: end(teleW, "room.")},
+  jumps: [{at: t(teleW, "One")}, {at: t(teleW, "over")}],
+};
+
+// Three points, as if each came from a different video (the stand-in plays for each piece).
+const cutW = demoWords("Before you post your next video, check these three. First, does the hook land in a second? Second, would you watch it with the sound off? Third, does it end on one clear ask? Comment EDIT and I'll send you the checklist.");
+export const supercut: SupercutProps = {
+  pieces: [{footage: null, from: 0, to: t(cutW, "Second,") - 0.1}, {footage: null, from: t(cutW, "Second,") - 0.1, to: t(cutW, "Third,") - 0.1},
+    {footage: null, from: t(cutW, "Third,") - 0.1, to: t(cutW, "checklist.") + 0.6}],
+  words: cutW, jcut: 0.2, cuts: [{at: t(cutW, "Second,") + 0.1, type: "flash"}, {at: t(cutW, "Third,") + 0.1, type: "glitch"}],
+  durationInSeconds: t(cutW, "checklist.") + 0.6,
+  hook: {top: "Before you post your next video,", main: "check these 3."},
+  sections: [
+    {at: t(cutW, "First,"), kicker: "First", line: "does the hook land in a second?", accent: ["hook"]},
+    {at: t(cutW, "Second,"), kicker: "Second", line: "would you watch it with the sound off?", accent: ["sound"]},
+    {at: t(cutW, "Third,"), kicker: "Third", line: "does it end on one clear ask?", accent: ["ask?"]},
+  ],
+  checklist: {at: t(cutW, "Comment") - 0.6, title: "Before you post", rows: [["Hook:", "lands in a second"], ["Sound off:", "still makes sense"], ["Ending:", "one clear ask"]]},
+  cta: {at: t(cutW, "Comment"), top: "Comment", word: "EDIT", sub: "for the checklist"},
 };

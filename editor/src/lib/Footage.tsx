@@ -6,7 +6,7 @@
 // the same clip, made with any background-removal tool (for example Robust Video Matting). Pass it as `cutout`. The
 // stand-in has its own cut-out, so the demos show the effect.
 import React from "react";
-import {AbsoluteFill, Audio, OffthreadVideo, Video, staticFile} from "remotion";
+import {AbsoluteFill, Audio, Img, OffthreadVideo, Video, staticFile} from "remotion";
 import {H, W} from "./time";
 
 // Where the 1080x1920 clip sits on screen: scale s, then its top-left corner at (ox, oy).
@@ -65,20 +65,33 @@ export const Footage: React.FC<{src: string | null; framing?: Framing; startFrom
   </AbsoluteFill>
 );
 
+// A still the size of the clip (a clean plate, a frame grab), framed like the footage.
+export const FootageStill: React.FC<{src: string; framing?: Framing}> = ({src, framing = FULL}) => (
+  <AbsoluteFill>
+    <Frame fr={framing}>
+      <Img src={resolve(src)} style={{width: W, height: H, objectFit: "cover"}} />
+    </Frame>
+  </AbsoluteFill>
+);
+
 // You, cut out (alpha). Renders nothing if you passed footage but no cut-out.
-export const Cutout: React.FC<{src: string | null; cutout?: string | null; framing?: Framing; startFrom?: number; style?: React.CSSProperties}> = ({
+// `exact`: each frame drawn as an image (slower), for cut-outs inside blend modes or filters, where a playing video breaks.
+export const Cutout: React.FC<{src: string | null; cutout?: string | null; framing?: Framing; startFrom?: number; style?: React.CSSProperties; exact?: boolean}> = ({
   src,
   cutout,
   framing = FULL,
   startFrom = 0,
   style,
+  exact = false,
 }) => {
   if (src && !cutout) return null;
   return (
     <AbsoluteFill style={style}>
       <Frame fr={framing}>
         {cutout ? (
-          <Video src={resolve(cutout)} trimBefore={Math.round(startFrom * 30)} muted style={{width: W, height: H, objectFit: "cover"}} />
+          exact
+            ? <OffthreadVideo src={resolve(cutout)} trimBefore={Math.round(startFrom * 30)} muted transparent style={{width: W, height: H, objectFit: "cover"}} />
+            : <Video src={resolve(cutout)} trimBefore={Math.round(startFrom * 30)} muted style={{width: W, height: H, objectFit: "cover"}} />
         ) : (
           <StandIn cutout />
         )}
