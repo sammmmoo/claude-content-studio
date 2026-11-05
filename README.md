@@ -9,7 +9,7 @@ It covers the whole job:
 3. **Script**: written to be read off a teleprompter, with a clean read copy and separate notes for the edit.
 4. **The edit**: cuts, captions, zooms, sound effects and animations, in a style preset you pick.
 
-Everything in here comes from our own research into what works on short-form video. You plug in whichever creators you like. We take inspiration from people like Kallaway, Hormozi, Mino Lee and Nate Herk for topics and styles, then move it into our niche. You do the same with yours. (None of these creators is affiliated with this repo or has endorsed it.)
+Everything in here comes from our own research into what works on short-form video. You plug in whichever creators you like. We take inspiration from people like Kallaway, Hormozi and Mino Lee for topics and styles, then move it into our niche. You do the same with yours. (None of these creators is affiliated with this repo or has endorsed it.)
 
 ## Why this doesn't make slop
 

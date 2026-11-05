@@ -13,9 +13,7 @@ import {LogoRain} from "./devices/LogoRain";
 import {TextBehind} from "./devices/TextBehind";
 import {CleanWide} from "./presets/CleanWide";
 import {Supercut} from "./presets/Supercut";
-import {HeadBand} from "./presets/HeadBand";
 import {RedBox} from "./presets/RedBox";
-import {TopCard} from "./presets/TopCard";
 import {WalkShow} from "./presets/WalkShow";
 import {Wall} from "./presets/Wall";
 import {FPS, H, W} from "./lib/time";
@@ -45,8 +43,6 @@ export const Root: React.FC = () => (
   <>
     <Folder name="Presets">
       {comp("Wall", Wall, demo.wall)}
-      {comp("TopCard", TopCard, demo.topCard)}
-      {comp("HeadBand", HeadBand, demo.headBand)}
       {comp("RedBox", RedBox, demo.redBox)}
       {comp("WalkShow", WalkShow, demo.walkShow)}
       {comp("CleanWide", CleanWide, demo.cleanWide)}

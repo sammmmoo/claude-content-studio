@@ -1,6 +1,6 @@
 # editor/
 
-A ready [Remotion](https://www.remotion.dev) project with every style and animation from `presets/PRESETS.md`: one template per preset, the four devices, and the house pieces they share. You give it your clip, your words and your text; it renders a 1080x1920, 30 fps video.
+A ready [Remotion](https://www.remotion.dev) project with every style and animation from `presets/PRESETS.md`: one template per preset, the devices, and the house pieces they share. You give it your clip, your words and your text; it renders a 1080x1920, 30 fps video.
 
 Every template renders straight after install, with a drawn stand-in where your footage goes, so you can see each one before you film.
 
@@ -26,12 +26,10 @@ The compositions:
 | Preset or device | Composition | What it does |
 |---|---|---|
 | 1 Wall | `Wall` | Dark wall the camera glides along; stations: headline, label bars with number chips, reveal list, iPhone Messages mock tagged EXAMPLE, big number. You in a window at the bottom. |
-| 2 Top Card | `TopCard` | Title builds word by word on paper, key phrase boxed; browser screenshots with the key line highlighted; you in the bottom third; full-face punch-in for the CTA. |
-| 3 Head Band | `HeadBand` | Graphic band across the top, you below; capital captions with the key word green and negatives red; band swaps, "#3" list cards, punch-ins, transitions. |
-| 4 Red Box | `RedBox` | The viewer's question in a red box on frame 0, then small lowercase subtitles; wide and close framings. |
-| 5 Walk & Show | `WalkShow` | POV hook, small outlined captions, still screen cards, transitions on every cut. |
-| 6 Clean Wide | `CleanWide` | One locked wide shot, small title held, word-by-word captions, price-tag cards on your chest. |
-| 7 Supercut | `Supercut` | Clips from different videos back to back (J-cut joins) under one card: yellow hook, numbered sections typed as they're said, a segment bar, checklist and comment CTA. |
+| 2 Red Box | `RedBox` | The viewer's question in a red box on frame 0, then small lowercase subtitles; wide and close framings. |
+| 3 Walk & Show | `WalkShow` | POV hook, small outlined captions, still screen cards, transitions on every cut. |
+| 4 Clean Wide | `CleanWide` | One locked wide shot, small title held, word-by-word captions, price-tag cards on your chest. |
+| 5 Supercut | `Supercut` | Clips from different videos back to back (J-cut joins) under one card: yellow hook, numbered sections typed as they're said, a segment bar, checklist and comment CTA. |
 | Reel wall | `ReelWall` | The background becomes a drifting wall of reels with view counts; you in front. |
 | Feed scroll | `FeedScroll` | One creator's feed flicks up on a card behind you. |
 | Reel orbit | `ReelOrbit` | Reels circle above your head, passing behind it. |

@@ -1,5 +1,4 @@
-// Cards that SHOW the thing: a browser screenshot with its key sentence highlighted, a title that builds word by word,
-// a plain white card for a list item, a still screen card, and a reel tile for the devices.
+// Cards that SHOW the thing: a still screen card, a small card over your chest, and a reel tile for the devices.
 // Images are yours: put them in public/images and pass "images/name.png". With no image you get neutral stand-in lines.
 import React from "react";
 import {Img, OffthreadVideo, staticFile} from "remotion";
@@ -16,69 +15,6 @@ const StandInLines: React.FC<{rows?: number; hi?: number; tone?: "light" | "dark
     {Array.from({length: rows}, (_, i) => (
       <div key={i} data-hi={i === hi ? 1 : 0} style={{height: 20, width: `${[96, 88, 92, 74, 90, 82, 68, 86][i % 8]}%`, borderRadius: 6, background: tone === "light" ? "#c9c9cf" : "#3a3a40"}} />
     ))}
-  </div>
-);
-
-// A browser window with a screenshot. `highlight` is a box in the screenshot's own pixels (fractions 0-1 of its width
-// and height) that a yellow marker sweeps across at frame `hiAt`.
-export type Highlight = {x: number; y: number; w: number; h: number};
-export const BrowserCard: React.FC<{
-  f: number; x: number; y: number; w: number; h: number; url?: string; image?: string | null; highlight?: Highlight; hiAt?: number;
-}> = ({f, x, y, w, h, url = "example.com", image, highlight, hiAt = 0}) => {
-  const k = clamp(f, hiAt, hiAt + 8);
-  const bodyH = h - 64;
-  return (
-    <div style={{position: "absolute", left: x, top: y, width: w, height: h, borderRadius: 22, overflow: "hidden", background: "#fff",
-      boxShadow: "0 24px 60px rgba(0,0,0,0.28), 0 0 0 1.5px rgba(0,0,0,0.08)"}}>
-      <div style={{height: 64, background: "#EDEDF0", display: "flex", alignItems: "center", gap: 12, padding: "0 22px"}}>
-        {["#FF5F57", "#FEBC2E", "#28C840"].map((c) => <div key={c} style={{width: 18, height: 18, borderRadius: 9, background: c}} />)}
-        <div style={{flex: 1, marginLeft: 18, height: 38, borderRadius: 19, background: "#fff", display: "flex", alignItems: "center", padding: "0 20px",
-          fontFamily: FONT.inter, fontSize: 24, color: "#6b6b70"}}>{url}</div>
-      </div>
-      <div style={{position: "relative", height: bodyH, padding: image ? 0 : 36, overflow: "hidden"}}>
-        {image ? <Img src={resolve(image)} style={{width: "100%", display: "block"}} /> : <StandInLines hi={3} />}
-        {highlight && f >= hiAt && (
-          <div style={{position: "absolute", left: `${highlight.x * 100}%`, top: `${highlight.y * 100}%`, width: `${highlight.w * 100 * k}%`, height: `${highlight.h * 100}%`,
-            background: "rgba(245,227,31,0.55)", mixBlendMode: "multiply", borderRadius: 4}} />
-        )}
-      </div>
-    </div>
-  );
-};
-
-// The title card: words build one by one over `buildFrames` (first word already up on frame 0), then the key phrase lands
-// in an accent box in italic serif.
-export const TitleCard: React.FC<{f: number; lines: string[]; box: string; buildFrames?: number; top?: number; tone?: "ink" | "white"}> = ({
-  f, lines, box, buildFrames = 15, top = 300, tone = "ink",
-}) => {
-  const words = lines.join(" ").split(/\s+/);
-  const step = buildFrames / (words.length + 1);
-  let n = 0;
-  return (
-    <div style={{position: "absolute", left: 60, right: 60, top, textAlign: "center"}}>
-      {lines.map((line, li) => (
-        <div key={li} style={{fontFamily: FONT.inter, fontWeight: 900, fontSize: 112, lineHeight: 1.05, letterSpacing: "-0.035em", color: tone === "ink" ? C.ink : "#fff"}}>
-          {line.split(/\s+/).map((w, i) => {
-            const shown = f >= Math.floor(n++ * step);
-            return <span key={i} style={{opacity: shown ? 1 : 0}}>{i ? " " : ""}{w}</span>;
-          })}
-        </div>
-      ))}
-      <div style={{display: "inline-block", marginTop: 18, background: C.accent, borderRadius: 10, padding: "4px 28px 14px", opacity: f >= buildFrames - step ? 1 : 0,
-        transform: `scale(${0.9 + 0.1 * clamp(f, buildFrames - step, buildFrames + 4)})`}}>
-        <span style={{fontFamily: FONT.serif, fontStyle: "italic", fontSize: 108, color: "#fff", lineHeight: 1}}>{box}</span>
-      </div>
-    </div>
-  );
-};
-
-// A list item full screen on a white card: "#3" big, the item under it.
-export const ListCard: React.FC<{n: number; text: string; sub?: string}> = ({n, text, sub}) => (
-  <div style={{position: "absolute", left: 70, right: 70, top: 380, height: 760, borderRadius: 36, background: "#fff", boxShadow: "0 30px 80px rgba(0,0,0,0.45)",
-    display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, padding: 60, textAlign: "center"}}>
-    <div style={{fontFamily: FONT.inter, fontWeight: 900, fontSize: 220, lineHeight: 1, color: C.accent, letterSpacing: "-0.05em"}}>#{n}</div>
-    <div style={{fontFamily: FONT.inter, fontWeight: 800, fontSize: 76, lineHeight: 1.08, color: C.ink, letterSpacing: "-0.03em"}}>{text}</div>
-    {sub && <div style={{fontFamily: FONT.inter, fontWeight: 600, fontSize: 40, color: "#6b6b70"}}>{sub}</div>}
   </div>
 );
 

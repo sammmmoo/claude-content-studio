@@ -54,7 +54,7 @@ def expect(ok: bool, what: str):
 
 @check
 def harness():
-    im = still("harness", "HeadBand", 45, {"footage": CLIP["footage"]})
+    im = still("harness", "RedBox", 45, {"footage": CLIP["footage"]})
     expect(im.shape == (1920, 1080, 3), f"still is {im.shape}, want 1920x1080")
 
 

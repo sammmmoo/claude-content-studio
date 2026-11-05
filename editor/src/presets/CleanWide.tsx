@@ -1,4 +1,4 @@
-// PRESET 6, CLEAN WIDE (inspired by Jun Yuh). One tripod, one clean bright spot, one take, centred, no cuts and no camera
+// PRESET 4, CLEAN WIDE (inspired by Jun Yuh). One tripod, one clean bright spot, one take, centred, no cuts and no camera
 // moves (so no opener or breathe here). A small lowercase title from frame 0, held; word-by-word white lowercase captions
 // (each word appears as you say it); small cards over your chest, like price tags.
 import React from "react";

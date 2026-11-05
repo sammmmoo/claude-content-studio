@@ -1,4 +1,4 @@
-// PRESET 5, WALK & SHOW (inspired by Mino Lee). Handheld selfie, often a new spot for each point. Captions 1-3 words,
+// PRESET 3, WALK & SHOW (inspired by Mino Lee). Handheld selfie, often a new spot for each point. Captions 1-3 words,
 // white bold with a thin dark outline, small, centred mid-frame, yellow on money and time. A "POV:" line at the top on
 // story videos (the red hook block). Very light graphics: real screen cards held 1-2 seconds, on and off on a hard frame.
 // Your cuts get the house transitions (flash, zoom, leak, glitch).

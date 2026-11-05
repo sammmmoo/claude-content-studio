@@ -1,4 +1,4 @@
-// PRESET 4, RED BOX (inspired by Alex Hormozi). Frame 0: a red rounded box with the viewer's question in white bold
+// PRESET 2, RED BOX (inspired by Alex Hormozi). Frame 0: a red rounded box with the viewer's question in white bold
 // capitals, in quotes, lower half, already complete. Then small white lowercase subtitles, bold key word, yellow italics
 // for numbers and quotes. Almost no graphics. The only cuts are between a wide and a close framing of the same shot (crop
 // a 4K clip). The car preset: phone on the dash, parked, one take.

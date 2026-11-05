@@ -1,4 +1,4 @@
-// PRESET 7, SUPERCUT (our own supercut Reels). One argument cut from different videos: each point can come from another
+// PRESET 5, SUPERCUT (our own supercut Reels). One argument cut from different videos: each point can come from another
 // take, another shirt, another room. Footage as filmed. One card is pinned in the upper third, clear of your head:
 // a yellow hook card -> an ink card with each point's line appearing on your words, a numeral rolling 1, 2, 3 and a bar
 // with one segment per point -> a checklist of every point (the rows land together) -> the call to action. Captions are

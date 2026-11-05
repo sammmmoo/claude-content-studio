@@ -1,19 +1,18 @@
 // Word-by-word captions. Pages of 2-3 spoken words, swapped hard on a word (never animated in), white with a soft shadow,
 // ONE highlighted word a line at most (a fully marked line keeps only its last word marked).
 //
-// Four looks:
-//   clean    Montserrat SemiBold, lowercase, key word bold, highlight = yellow bold italic   (Red Box, Top Card, Clean Wide)
+// Three looks:
+//   clean    Montserrat SemiBold, lowercase, key word bold, highlight = yellow bold italic   (Red Box, Clean Wide)
 //   punchy   TikTok Sans Medium, sentence case, highlight = bright yellow, money 1.35x        (Wall, the devices)
-//   caps     Montserrat ExtraBold capitals, highlight = green, negatives red                  (Head Band)
 //   outline  TikTok Sans Bold, small, thin dark outline, highlight = yellow                   (Walk & Show)
-// On a light ground (Top Card's paper) the line is ink and the highlighted word sits on a yellow highlighter.
+// On a light ground the line is ink and the highlighted word sits on a yellow highlighter.
 import React from "react";
 import {FONT} from "../lib/fonts";
 import {textWidth} from "../lib/metrics";
 import {C} from "../lib/tokens";
 import {Page, Word, norm, pageAt, paginate} from "../lib/words";
 
-export type CapStyle = "clean" | "punchy" | "caps" | "outline";
+export type CapStyle = "clean" | "punchy" | "outline";
 export type CapToken = {text: string; key?: boolean; hl?: boolean; neg?: boolean; hidden?: boolean};
 
 type Spec = {
@@ -42,11 +41,6 @@ export const CAP: Record<CapStyle, Spec> = {
     family: FONT.tiktok, size: 84, weight: 560, keyWeight: 700, hlWeight: 700, hlItalic: false, hlColor: C.yellowBright, kase: "sentence",
     shadow: "0 3px 9px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.25)",
     faces: {base: "tiktok-560", key: "tiktok-700", hl: "tiktok-700"}, moneyScale: 1.35, tracking: "-0.01em",
-  },
-  caps: {
-    family: FONT.montserrat, size: 74, weight: 800, keyWeight: 800, hlWeight: 800, hlItalic: false, hlColor: C.green, kase: "upper",
-    shadow: "0 4px 12px rgba(0,0,0,0.6), 0 0 24px rgba(0,0,0,0.3)",
-    faces: {base: "montserrat-800", key: "montserrat-800", hl: "montserrat-800"}, moneyScale: 1, tracking: "-0.01em",
   },
   outline: {
     family: FONT.tiktok, size: 64, weight: 700, keyWeight: 800, hlWeight: 800, hlItalic: false, hlColor: C.yellowBright, kase: "sentence",
