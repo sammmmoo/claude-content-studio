@@ -4,7 +4,7 @@
 set -uo pipefail
 cd "$(dirname "$0")/../.."
 bad=0
-for pair in teleport:Teleport text-behind:TextBehind reel-wall:ReelWall reel-orbit:ReelOrbit logo-rain:LogoRain film-grade:FilmGrade clone-me:CloneMe supercut:Supercut; do
+for pair in teleport:Teleport text-behind:TextBehind reel-wall:ReelWall reel-orbit:ReelOrbit logo-rain:LogoRain film-grade:FilmGrade clone-me:CloneMe supercut:Supercut thanos:Thanos vanish:Thanos drop-in:DropIn tier-list:TierList time-stop:TimeStop portal:Portal shrink:Shrink break-out:BreakOut; do
   cmd=${pair%%:*} comp=${pair##*:} f=".claude/commands/$cmd.md"
   if [ ! -f "$f" ]; then echo "FAIL /$cmd: no $f"; bad=1; continue; fi
   grep -q '^description:' "$f" || { echo "FAIL /$cmd: no description"; bad=1; }
@@ -26,5 +26,5 @@ s=.claude/commands/supercut.md
 grep -q '"One:"' $s && { echo "FAIL /supercut: example rows number themselves (the card already does)"; bad=1; }
 grep -q '"word": "EDIT"' $s && { echo "FAIL /supercut: our CTA keyword as the example"; bad=1; }
 grep -q "own words" $s || { echo "FAIL /supercut: doesn't ask for the creator's own words"; bad=1; }
-[ $bad = 0 ] && echo "PASS commands (8)"
+[ $bad = 0 ] && echo "PASS commands (16)"
 exit $bad

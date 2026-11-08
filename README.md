@@ -50,6 +50,13 @@ One effect on any vertical clip, yours or a client's. Type the command and the c
 - `/logo-rain`: tiles with your logos tumble down behind you.
 - `/film-grade`: a before/after wipe from the flat clip to a film look.
 - `/clone-me`: two more of you step in beside you, each a beat behind.
+- `/thanos` (or `/vanish`): you turn to dust and blow away, then form again somewhere else.
+- `/drop-in`: the room is empty, then you fall in from above and land on your spot.
+- `/tier-list`: a tier board above your head; each thing you rank drops into its row as you say it.
+- `/time-stop`: the world freezes and turns grey, and you step out of it in colour.
+- `/portal`: a hole opens under you and you drop through the floor, then pop up somewhere else.
+- `/shrink`: you shrink to action-figure size, keep talking, and pop back.
+- `/break-out`: your video plays in a card and you step out of it.
 - `/supercut`: one argument cut from different videos under one numbered card, e.g. `/supercut footage/take1.mp4 footage/take2.mp4 footage/take3.mp4`.
 
 ## What's in here

@@ -238,6 +238,105 @@ def supercut_bare():
     expect(num >= 0.6, f"the last section's numeral is gone (the demo's checklist or CTA took over): {num:.2f}")
 
 
+# The body effects, on the jumping white disc (test_teleport_prep.make_clip: x 300 until 1.0 s, then x 800) with the plate,
+# stills and feet from body_prep.py, and on the test clip for the ones that only need a cut-out.
+def body(*ats: float) -> dict:
+    foot = ED / "public" / "footage"
+    if not (foot / "syn.mp4").exists():
+        sys.path.insert(0, str(ED / "tests"))
+        from test_teleport_prep import make_clip
+        make_clip(foot)
+    out = subprocess.run([sys.executable, str(ED / "scripts" / "body_prep.py"), str(foot / "syn.mp4"), "--cutout", str(foot / "syn-cutout.webm"),
+                          "--at", ",".join(str(a) for a in ats)], check=True, capture_output=True, text=True).stdout
+    return json.loads(out)
+
+
+SYN = {"footage": "footage/syn.mp4", "cutout": "footage/syn-cutout.webm", "hook": HOOK}
+WHITE_DISC = lambda im, cx, cy=960, r=100: frac(im, (cx - r, cy - r, cx + r, cy + r), (255, 255, 255), 30)
+
+
+@check
+def thanos():
+    b = body(0.3, 1.6)
+    props = {**SYN, "snap": 0.3, "back": 1.6, "plate": b["plate"], "still": b["points"][0]["still"], "backStill": b["points"][1]["still"]}
+    expect(WHITE_DISC(still("thanos_4", "Thanos", 4, props), 300) > 0.9, "before the snap you should be there")
+    gone = still("thanos_31", "Thanos", 31, props)
+    expect(WHITE_DISC(gone, 300) < 0.15, f"near the end of the dust you should be gone: {WHITE_DISC(gone, 300):.2f} of you left")
+    mid = still("thanos_16", "Thanos", 16, props)
+    expect(0.15 < WHITE_DISC(mid, 300, r=150) < 0.85, f"mid-snap you should be part dust: {WHITE_DISC(mid, 300, r=150):.2f}")
+    expect(frac(mid, (420, 700, 900, 1000), (255, 255, 255), 60) > 0.002, "no dust blowing to the right")
+    expect(WHITE_DISC(still("thanos_50", "Thanos", 50, props), 800) > 0.9, "after `back` you should be standing at the new spot")
+    still("thanos_demo", "Thanos", 20, {"footage": None, "words": [], "snap": 0.3, "hook": HOOK})  # the fallback renders
+
+
+@check
+def drop_in():
+    b = body(0.5)["points"][0]
+    props = {**SYN, "land": 0.5, "feet": b["feet"], "plate": body(0.5)["plate"]}
+    expect(WHITE_DISC(still("drop_2", "DropIn", 2, props), 300) < 0.02, "before the fall the room should be empty")
+    mid = still("drop_10", "DropIn", 10, props)
+    expect(WHITE_DISC(mid, 300) < 0.2, "mid-fall you're already home")
+    expect(frac(mid, (200, 0, 400, 700), (255, 255, 255), 30) > 0.05, "mid-fall you should be above your spot")
+    expect(WHITE_DISC(still("drop_28", "DropIn", 28, props), 300, r=80) > 0.85, "after landing the clip plays")
+
+
+@check
+def tier_list():
+    props = {**CLIP, "title": "RANKED", "enter": 0.5, "hook": HOOK,
+             "items": [{"text": "Zq", "tier": 0, "at": 1.0}, {"text": "Xv", "tier": 2, "at": 1.2}]}
+    im = still("tier_list", "TierList", 50, props)
+    expect(float(im[440:500, 75:110].mean()) > 120, "the S label should be there")
+    expect(near(im[425, 240], (255, 255, 255), 20), f"the first tile should sit in the top row: {tuple(im[425, 240])}")
+    expect(near(im[900, 540], DISC), f"the board should sit behind you: {tuple(im[900, 540])}")
+    early = still("tier_list_early", "TierList", 10, props)
+    expect(not near(early[425, 240], (255, 255, 255), 20), "a tile shows before its time")
+
+
+@check
+def time_stop():
+    props = {**CLIP, "stop": 1.0, "hook": HOOK}
+    before, after = still("time_stop_20", "TimeStop", 20, props), still("time_stop_55", "TimeStop", 55, props)
+    expect(sat(before, (0, 300, 300, 700)) > 60, f"before the stop the clip should be in colour: {sat(before, (0, 300, 300, 700)):.0f}")
+    expect(sat(after, (0, 300, 300, 700)) < 15, f"after the stop the world should be grey: {sat(after, (0, 300, 300, 700)):.0f}")
+    expect(near(after[1070, 960], DISC), f"you should have stepped out 420 px to the right: {tuple(after[1070, 960])}")
+
+
+@check
+def portal():
+    b = body(0.3, 1.5)
+    props = {**SYN, "open": 0.3, "feet": b["points"][0]["feet"], "height": b["points"][0]["height"], "plate": b["plate"],
+             "rise": 1.5, "feet2": b["points"][1]["feet"]}
+    fx, fy = b["points"][0]["feet"]
+    hole = still("portal_14", "Portal", 14, props)
+    expect(float(hole[fy + 15:fy + 35, fx - 120:fx + 120].mean()) < 60, "no black hole at your feet")
+    sink = still("portal_25", "Portal", 25, props)
+    expect(frac(sink, (fx - 160, fy + 2, fx + 160, fy + 80), (255, 255, 255), 30) < 0.01, "you show below the floor")  # above the captions
+    expect(WHITE_DISC(still("portal_38", "Portal", 38, props), 300) < 0.02, "after the hole closes you should be gone")
+    expect(WHITE_DISC(still("portal_47", "Portal", 47, props), 800) > 0.9, "after `rise` you should be at the new spot")
+
+
+@check
+def shrink():
+    b = body(0.5)
+    props = {**SYN, "at": 0.2, "back": 0.8, "feet": b["points"][0]["feet"], "plate": b["plate"]}
+    small = still("shrink_20", "Shrink", 20, props)
+    expect(WHITE_DISC(small, 300) < 0.2, f"you should be small: {WHITE_DISC(small, 300):.2f} of your full size left")
+    fx, fy = b["points"][0]["feet"]
+    expect(frac(small, (fx - 50, fy - 80, fx + 50, fy - 5), (255, 255, 255), 30) > 0.3, "the small you should stand on your feet spot")
+    expect(WHITE_DISC(still("shrink_29", "Shrink", 29, props), 300, r=80) > 0.85, "after `back` you should be full size")
+
+
+@check
+def break_out():
+    props = {**CLIP, "step": 1.0, "hook": HOOK}
+    before, after = still("break_out_20", "BreakOut", 20, props), still("break_out_45", "BreakOut", 45, props)
+    expect(float(before[20:60, 20:60].mean()) < 30, "the background round the card should be dark")
+    width = lambda im, y: int((np.abs(im[y] - np.array(DISC)).max(axis=1) <= 25).sum())
+    at_step = still("break_out_30", "BreakOut", 30, props)
+    expect(280 <= width(at_step, 1023) <= 330, f"as you step you should be the card's size: {width(at_step, 1023)} px wide")
+    expect(width(after, 916) > 335, f"you should grow as you step out: {width(after, 916)} px wide")
+
+
 def main(names: list[str]) -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     subprocess.run(["rm", "-rf", str(OUT / "bundle")], check=True)  # rebundle once per run, so the checks see the current code
