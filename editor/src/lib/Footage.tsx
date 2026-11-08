@@ -17,7 +17,7 @@ export type Point = {x: number; y: number};
 // The stand-in's face centre in clip pixels. With your own footage, pass your face position as `face` in the props.
 export const STAND_IN_FACE: Point = {x: 540, y: 1070};
 
-const resolve = (src: string) => (/^https?:\/\//.test(src) ? src : staticFile(src));
+export const resolve = (src: string) => (/^https?:\/\//.test(src) ? src : staticFile(src));
 
 // Scale a framing about a screen point (punch-ins, breathe): that point stays put.
 export const scaleAbout = (fr: Framing, k: number, p: Point): Framing => ({s: fr.s * k, ox: p.x - (p.x - fr.ox) * k, oy: p.y - (p.y - fr.oy) * k});

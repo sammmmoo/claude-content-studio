@@ -11,6 +11,13 @@ import {CloneMe} from "./devices/CloneMe";
 import {Teleport} from "./devices/Teleport";
 import {LogoRain} from "./devices/LogoRain";
 import {TextBehind} from "./devices/TextBehind";
+import {Thanos} from "./devices/Thanos";
+import {DropIn} from "./devices/DropIn";
+import {TierList} from "./devices/TierList";
+import {TimeStop} from "./devices/TimeStop";
+import {Portal} from "./devices/Portal";
+import {Shrink} from "./devices/Shrink";
+import {BreakOut} from "./devices/BreakOut";
 import {CleanWide} from "./presets/CleanWide";
 import {Supercut} from "./presets/Supercut";
 import {RedBox} from "./presets/RedBox";
@@ -60,6 +67,13 @@ export const Root: React.FC = () => (
       {comp("FilmGrade", FilmGrade, demo.filmGrade)}
       {comp("CloneMe", CloneMe, demo.cloneMe)}
       {comp("Teleport", Teleport, demo.teleport)}
+      {comp("Thanos", Thanos, demo.thanos)}
+      {comp("DropIn", DropIn, demo.dropIn)}
+      {comp("TierList", TierList, demo.tierList)}
+      {comp("TimeStop", TimeStop, demo.timeStop)}
+      {comp("Portal", Portal, demo.portal)}
+      {comp("Shrink", Shrink, demo.shrink)}
+      {comp("BreakOut", BreakOut, demo.breakOut)}
     </Folder>
   </>
 );

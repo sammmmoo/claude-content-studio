@@ -7,6 +7,13 @@ import {ReelWallProps} from "./devices/ReelWall";
 import {FilmGradeProps} from "./devices/FilmGrade";
 import {CloneMeProps} from "./devices/CloneMe";
 import {TeleportProps} from "./devices/Teleport";
+import {ThanosProps} from "./devices/Thanos";
+import {DropInProps} from "./devices/DropIn";
+import {TierListProps} from "./devices/TierList";
+import {TimeStopProps} from "./devices/TimeStop";
+import {PortalProps} from "./devices/Portal";
+import {ShrinkProps} from "./devices/Shrink";
+import {BreakOutProps} from "./devices/BreakOut";
 import {LogoRainProps} from "./devices/LogoRain";
 import {TextBehindProps} from "./devices/TextBehind";
 import {Reel} from "./objects/cards";
@@ -136,6 +143,59 @@ export const teleport: TeleportProps = {
   footage: null, words: teleW, highlight: ["jump"],
   hook: {top: "Watch me", main: "teleport", until: end(teleW, "room.")},
   jumps: [{at: t(teleW, "One")}, {at: t(teleW, "over")}],
+};
+
+// The body effects. The stand-in has no clean plate or cut-out still, so each shows its fallback; your props from
+// scripts/body_prep.py (plate, still, feet) give the full effect.
+const thanosW = demoWords("One snap and I'm dust. Gone, just like that. That's the Thanos snap.");
+export const thanos: ThanosProps = {
+  footage: null, words: thanosW, highlight: ["snap"],
+  hook: {top: "One snap", main: "and I'm gone", until: end(thanosW, "dust.")},
+  snap: t(thanosW, "and"),
+};
+
+const dropW = demoWords("Empty room, then I fall straight into my own shot. That's drop in.");
+export const dropIn: DropInProps = {
+  footage: null, words: dropW, highlight: ["fall"],
+  hook: {top: "Watch me", main: "drop in", until: end(dropW, "shot.")},
+  land: t(dropW, "fall"), feet: [540, 1900],
+};
+
+const tierW = demoWords("My tools, ranked. Claude goes top. ChatGPT, then Gemini. Then the rest.");
+export const tierList: TierListProps = {
+  footage: null, words: tierW, highlight: ["ranked."],
+  hook: {top: "", main: "", until: 0},
+  title: "MY TOOLS, RANKED", enter: t(tierW, "My"),
+  items: [{text: "Claude", tier: 0, at: t(tierW, "Claude")}, {text: "ChatGPT", tier: 1, at: t(tierW, "ChatGPT,")},
+    {text: "Gemini", tier: 1, at: t(tierW, "Gemini.")}, {text: "The rest", tier: 3, at: t(tierW, "rest.")}],
+};
+
+const stopW = demoWords("I stop time, and step right out of it. That's time stop.");
+export const timeStop: TimeStopProps = {
+  footage: null, words: stopW, highlight: ["stop"],
+  hook: {top: "I can", main: "stop time", until: end(stopW, "time,")},
+  stop: t(stopW, "stop"), centre: [540, 1300], dx: 360,
+};
+
+const portalW = demoWords("A hole opens under me and I drop straight through the floor. That's portal.");
+export const portal: PortalProps = {
+  footage: null, words: portalW, highlight: ["drop"],
+  hook: {top: "Through", main: "the floor", until: end(portalW, "me")},
+  open: t(portalW, "hole"), feet: [540, 1900], height: 1060,
+};
+
+const shrinkW = demoWords("Now I'm action figure size. Still talking. And back to normal. That's shrink.");
+export const shrink: ShrinkProps = {
+  footage: null, words: shrinkW, highlight: ["size."],
+  hook: {top: "Tiny", main: "me", until: end(shrinkW, "Now")},
+  at: t(shrinkW, "Now"), back: t(shrinkW, "back"), feet: [540, 1900],
+};
+
+const breakW = demoWords("Here I am in a post, and now I step right out of it. That's break out.");
+export const breakOut: BreakOutProps = {
+  footage: null, words: breakW, highlight: ["out"],
+  hook: {top: "", main: "", until: 0},
+  step: t(breakW, "step"),
 };
 
 // Three points, as if each came from a different video (the stand-in plays for each piece).
